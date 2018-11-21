@@ -23,11 +23,11 @@ while True:
     # Capture frame-by-frame
     ret, frame = video_capture.read()
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     # Detect faces in the image
     faces = faceCascade.detectMultiScale(
-        gray,
+        frame,
         scaleFactor=1.1,
         minNeighbors=5,
         minSize=(30, 30)
@@ -39,7 +39,8 @@ while True:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
     # Display the resulting frame
-    cv2.imshow('frame',gray)
+    # Use 'q' to quite video
+    cv2.imshow('video',frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
