@@ -19,11 +19,14 @@ cascPath = "haarcascade_frontalface_default.xml"
 # Create the haar cascade
 faceCascade = cv2.CascadeClassifier(cascPath)
 
-img = cv2.imread("abba.png",0)
+img = cv2.imread("images/group-smiling.jpg",1)
+#Fix for color differences in matplot lib compared to opencv
+b,g,r = cv2.split(img)
+img2 = cv2.merge([r,g,b])
 
 # Detect faces in the image
 faces = faceCascade.detectMultiScale(
-    img,
+    img2,
     scaleFactor=1.1,
     minNeighbors=5,
     minSize=(30, 30)
@@ -32,7 +35,7 @@ faces = faceCascade.detectMultiScale(
 
 # Draw a rectangle around the faces
 for (x, y, w, h) in faces:
-    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+    cv2.rectangle(img2, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
 
 
@@ -42,7 +45,7 @@ print("Found {0} faces!".format(len(faces)))
 
 
 
-plt.imshow(img, cmap = 'gray', interpolation = 'bicubic')
+plt.imshow(img2, cmap = 'gray', interpolation = 'bicubic')
 plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
 plt.show()
 
