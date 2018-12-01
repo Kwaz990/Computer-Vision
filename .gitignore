@@ -16,6 +16,14 @@ local.properties
 .settings/
 .loadpath
 
+
+# Saved snapshots and videos
+snapShots/
+images/
+
+# any jpeg or png files
+
+
 # External tool builders
 .externalToolBuilders/
 

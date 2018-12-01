@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 import sys
+import time
 
 
 # Get user supplied values
