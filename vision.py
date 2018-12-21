@@ -2,6 +2,9 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 import sys
+import os
+
+
 
 
 # Get user supplied values
@@ -16,38 +19,57 @@ cascPath = "haarcascade_frontalface_default.xml"
 #cv2.destroyAllWindows()
 
 
+
 # Create the haar cascade
 faceCascade = cv2.CascadeClassifier(cascPath)
 
-img = cv2.imread("images/group-smiling.jpg",1)
+snaps = os.listdir('snapShots')
+counter = 0
+
+while counter < 2:
+#while counter < len(snaps): 
+    for file in snaps:
+        if file.endswith(".jpg"):
+            i = file
+
+
+#snap_files = [f for f in snaps if os.path.isfile(os.path.join(snaps, f))]
+        #for i in snap_files:
+
+            img = cv2.imread('snapShots/{}'.format(i))
+#img = cv2.imread("images/group-smiling.jpg",1)
 #Fix for color differences in matplot lib compared to opencv
-b,g,r = cv2.split(img)
-img2 = cv2.merge([r,g,b])
+            b,g,r = cv2.split(img)
+            img2 = cv2.merge([r,g,b])
 
 # Detect faces in the image
-faces = faceCascade.detectMultiScale(
-    img2,
-    scaleFactor=1.1,
-    minNeighbors=5,
-    minSize=(30, 30)
-    #flags = cv2.CV_HAAR_SCALE_IMAGE
-)
+            faces = faceCascade.detectMultiScale(
+            img2,
+            scaleFactor=1.1,
+            minNeighbors=5,
+            minSize=(30, 30)
+        #flags = cv2.CV_HAAR_SCALE_IMAGE
+            )
 
 # Draw a rectangle around the faces
-for (x, y, w, h) in faces:
-    cv2.rectangle(img2, (x, y), (x+w, y+h), (0, 255, 0), 2)
+            for (x, y, w, h) in faces:
+                cv2.rectangle(img2, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
 
 
-print("Found {0} faces!".format(len(faces)))
+                print("Found {0} faces!".format(len(faces)))
 
 
 
 
 
-plt.imshow(img2, cmap = 'gray', interpolation = 'bicubic')
-plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
-plt.show()
+                plt.imshow(img2, cmap = 'gray', interpolation = 'bicubic')
+                plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
+                plt.show()
+                counter +=1
+                print('there are {} snapshots'.format(len(snaps)))
+                print('counter = {}'.format(counter))
+                print('filename is {}'.format(i))
 
 
 
