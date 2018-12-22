@@ -61,14 +61,14 @@ def open_webcamframe():
             clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
             clahe_image = clahe.apply(gray)
            #To run classifier on frame
-           face = face_cascade.detectMultiScale(clahe_image, scaleFactor=1.1, minNeighbors=15, minSize=(10, 10), flags=cv2.CASCADE_SCALE_IMAGE)
+            face = face_cascade.detectMultiScale(clahe_image, scaleFactor=1.1, minNeighbors=15, minSize=(10, 10), flags=cv2.CASCADE_SCALE_IMAGE)
            #To draw rectangle around detected faces
-           for (x, y, w, h) in face: 
-              cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 2) #draw it on "frame", (coordinates), (size), (RGB color), thickness 2
+            for (x, y, w, h) in face: 
+                cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 2) #draw it on "frame", (coordinates), (size), (RGB color), thickness 2
 #Use simple check if one face is detected, or multiple (measurement error unless multiple persons on image)
                 if len(face) == 1: 
-                faceslice = crop_face(clahe_image, face)
-                cv2.imshow("webcam", frame)
+                    faceslice = crop_face(clahe_image, face)
+                    cv2.imshow("webcam", frame)
                 return faceslice#slice face from image
            
             else:
