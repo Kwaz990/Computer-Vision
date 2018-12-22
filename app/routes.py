@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
-from app.models import User
+from app.models import User, Person
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 
@@ -12,7 +12,13 @@ from app.forms import LoginForm, RegistrationForm
 def index():
     #user = {'username': 'Miguel'}
     sat_lev = { 'overall': '1'}
-    return render_template('index.html', title='Home', sat_lev = sat_lev)
+    moodQuery=Person.query.filter_by(user_id=1).all()
+    moodSum = 0
+    moodAverage = 0
+    for i in range(len(moodQuery)):
+        moodSum += moodQuery[i].mood
+        moodAverage += (moodSum/(len(moodQuery)))
+    return render_template('index.html', title='Home', sat_lev = sat_lev, mood= moodAverage)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

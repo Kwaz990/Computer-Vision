@@ -2,7 +2,9 @@
 
 {% block content %}
     <h1>Hello, {{ current_user.username }}!</h1>
+
     {% for sat in sat_lev %}
-    <div><p>{{ sat.username }} has a happiness scale of: <b>{{ sat.overall }}</b></p></div>
+    <div><p>{{ sat.username }} has a happiness scale of: <b>{{ mood }}</b></p></div>
     {% endfor %}
+
 {% endblock %}

@@ -4,13 +4,19 @@ from matplotlib import pyplot as plt
 import sys
 import time
 import face_recognition
+import os
 
 
+
+# this script allows you to identify individuals in a live webcam feed based on knwon, and unknown images.
 # Get user supplied values
 cascPath = "haarcascade_frontalface_default.xml"
 
-kwasi_image = face_recognition.load_image_file('./images/known_faces/Kwasi1.jpg')
-unkown_image = face_recognition.load_image_file('./images/unkown_faces/SnapShot3.jpg')
+kwasi_image_path = os.path.join('images', 'known_faces','Kwasi.jpg' )
+unknown_image_path = os.path.join('images', 'unknown_faces', 'SnapShot3.jpg')
+
+kwasi_image = face_recognition.load_image_file( kwasi_image_path)
+unknown_image = face_recognition.load_image_file(unknown_image_path)
 
 video_capture = cv2.VideoCapture(0)
 

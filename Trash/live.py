@@ -1,4 +1,4 @@
-# This script will detect faces via your webcam.
+# This script will detect faces via your webcam live.
 # Tested with OpenCV3
 
 import cv2

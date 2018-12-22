@@ -27,7 +27,7 @@ class Person(db.Model):
     faceBoolean = db.Column(db.Integer)
 
     def __repr__(self):
-        return '<Person {}>'.format(self.body)
+        return '<Person {}, has mood {}>'.format(self.user_id, self.mood)
 
 @login.user_loader
 def load_user(id):

@@ -4,7 +4,9 @@ from matplotlib import pyplot as plt
 import sys
 import os
 import datetime
-from groupfrontend.app.models import Person, User
+from app import db
+from app.models import Person, User
+from random import randint
 
 
 ## This script analyizes pictureds found in a specified directory
@@ -39,10 +41,10 @@ cascPath = "haarcascade_frontalface_default.xml"
 
 
 
-
-facesBoolean = 1
-expressionInteger = 2
-timeStamp = 1
+moodrating = randint(1,5)
+facesBoolean = None
+expressionInteger = 0
+timeStamp = datetime.datetime.now()
 
 
 
@@ -55,14 +57,16 @@ def commitFacialData(facesBoolean,expressionInteger,timeStamp):
     face = facesBoolean
     mood = expressionInteger
     time = timeStamp
-    currentuser = User.query.filter_by(username=current_user.username).first()
+   # currentuser = User.query.filter_by(username=current_user.username).first()
     #api_key = random.randint(10000, 99000)
     #SQL2 = '''INSERT INTO Person (mood, timestamp, faceBoolean) VALUES(?, ?, ?, ?)'''
  # values2 = (mood, time, face)
-    newFicialData = Person(timestamp = time, mood = expressionInteger, faceBoolean = facesBoolean, user_id = currentuser)  
+    newFacialData = Person(timestamp = time, mood = expressionInteger, faceBoolean = facesBoolean, user_id = 1)  
     #cursor.execute(SQL2, values2)
     #close(connection, cursor)
-    db.add(newFicialData)
+    db.session.add(newFacialData)
+    db.session.commit()
+    print(True)
     return True
 
 
@@ -118,8 +122,10 @@ while counter < 2:
                 print("Found {0} faces!".format(len(faces)))
 
                 #if 1 or more faces are detected make a db commit with boolean value and ineger value for facial expression
-                if len(faces) > 1:
-                    commitFacialData()
+                if len(faces) > 0:
+                    facesBoolean = True
+                    expressionInteger += moodrating
+                    commitFacialData(facesBoolean,expressionInteger,timeStamp)
 
 
 
