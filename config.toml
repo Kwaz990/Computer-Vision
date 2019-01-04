@@ -1,0 +1,10 @@
+# This config should be placed in following path:
+#   %AppData%\Parity\Ethereum\config.toml
+
+[parity]
+# Kovan Test Network
+chain = "kovan"
+
+[rpc]
+# Allows Cross-Origin Requests from domain 'none,https://127.0.0.1'.
+cors = ["none", "http://localhost:5000"]

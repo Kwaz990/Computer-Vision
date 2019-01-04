@@ -224,3 +224,7 @@ pip-log.txt
 
 venv
 migrations
+FacialExpressions
+dataset
+images
+snapShots

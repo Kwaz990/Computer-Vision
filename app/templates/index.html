@@ -3,8 +3,7 @@
 {% block content %}
     <h1>Hello, {{ current_user.username }}!</h1>
 
-    {% for sat in sat_lev %}
-    <div><p>{{ sat.username }} has a happiness scale of: <b>{{ mood }}</b></p></div>
-    {% endfor %}
+    <div><p>{{ subjectName }} has a happiness scale of: <b>{{ mood }}</b></p></div>
+    <img src = "{{impath}}" />
 
 {% endblock %}

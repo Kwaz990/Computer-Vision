@@ -9,69 +9,31 @@ from app.models import Person, User
 from random import randint
 
 
-## This script analyizes pictureds found in a specified directory
-# and determines if a face is found. If a face is found it will commit info to the dbs  ew34`2 
+## This script analyizes pictures found in a specified directory
+# and determines if a face is found. If a face is found it will commit info to the dbs
 
 # Get user supplied values
 #image = ("Pretty_Asians.png", 0)
 cascPath = "haarcascade_frontalface_default.xml"
 
-
-
-
-
-
-# establish database credentials
-
-## def connect():
-#    global dbname
-#    dbname = '/groupfrontend/app.db'
-#    global connection
-#    connection = sqlite3.connect(dbname)
-#    global cursor
-#    cursor=connection.cursor()
-#    return connection, cursor
-
-
-#def close(connection, cursor):
-#    connection.commit()
-#    cursor.close()
-#    connection.close()
-
-
-
-
 moodrating = randint(1,5)
 facesBoolean = None
 expressionInteger = 0
 timeStamp = datetime.datetime.now()
-
-
-
-
-
+subjectName = ''
 
 #function to commit facial expression integer (a 1-5 integer) and boolean for face detected.
-def commitFacialData(facesBoolean,expressionInteger,timeStamp):
+def commitFacialData(facesBoolean,expressionInteger,timeStamp, subjectName):
     #connection, cursor = connect()
     face = facesBoolean
     mood = expressionInteger
     time = timeStamp
-   # currentuser = User.query.filter_by(username=current_user.username).first()
-    #api_key = random.randint(10000, 99000)
-    #SQL2 = '''INSERT INTO Person (mood, timestamp, faceBoolean) VALUES(?, ?, ?, ?)'''
- # values2 = (mood, time, face)
-    newFacialData = Person(timestamp = time, mood = expressionInteger, faceBoolean = facesBoolean, user_id = 1)  
-    #cursor.execute(SQL2, values2)
-    #close(connection, cursor)
+    subjectName = subjectName
+    newFacialData = Person(timestamp = time, mood = expressionInteger, faceBoolean = facesBoolean, user_id = 1, subjectName = subjectName)
     db.session.add(newFacialData)
     db.session.commit()
     print(True)
     return True
-
-
-
-
 
 # Create the haar cascade
 faceCascade = cv2.CascadeClassifier(cascPath)
@@ -79,17 +41,11 @@ faceCascade = cv2.CascadeClassifier(cascPath)
 snaps = os.listdir('snapShots')
 counter = 0
 
-
-
-
-
-
 while counter < 2:
 #while counter < len(snaps): 
     for file in snaps:
         if file.endswith(".jpg"):
             i = file
-
 
 #snap_files = [f for f in snaps if os.path.isfile(os.path.join(snaps, f))]
         #for i in snap_files:
@@ -109,10 +65,6 @@ while counter < 2:
         #flags = cv2.CV_HAAR_SCALE_IMAGE
             )
 
-
-
-
-
 # Draw a rectangle around the faces
             for (x, y, w, h) in faces:
                 cv2.rectangle(img2, (x, y), (x+w, y+h), (0, 255, 0), 2)
@@ -124,14 +76,8 @@ while counter < 2:
                 #if 1 or more faces are detected make a db commit with boolean value and ineger value for facial expression
                 if len(faces) > 0:
                     facesBoolean = True
-                    expressionInteger += moodrating
+                    expressionInteger = moodrating
                     commitFacialData(facesBoolean,expressionInteger,timeStamp)
-
-
-
-
-
-
 
                 plt.imshow(img2, cmap = 'gray', interpolation = 'bicubic')
                 plt.xticks([]), plt.yticks([])  # to hide tick values on X and Y axis
@@ -142,18 +88,12 @@ while counter < 2:
                 print('filename is {}'.format(i))
 
 
+#
 
 
 # Read the image
 #pretty_asians = cv2.imread("./images/Pretty_Asians.png")
 #gray = cv2.cvtColor(pretty_asains, cv2.COLOR_BGR2GRAY)
-
-
-
-
-
-
-
 
 #cv2.imshow("Faces found", pretty_asains)
 #cv2.waitKey(0)

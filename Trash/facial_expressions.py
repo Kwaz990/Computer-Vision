@@ -1,11 +1,17 @@
-
-
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+import sys
+import os
+import datetime
+import time
 
 
 
 
 cv2.namedWindow("preview")
-vc = cv2.VideoCapture(0)
+vc = cv2.VideoCapture(cv2.CAP_DSHOW)
+#vc = cv2.VideoCapture(0)
 face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 facedict = {}
 emotions =["anger","disgust","fear","happy","neutral","sad","surprise"]
@@ -45,17 +51,19 @@ def save_face(emotion):
         cv2.imwrite("dataset_set\\%s\\%s.jpg" %(emotion,  len(glob.glob("dataset\\%s\\*" %emotion))), facedict[x])
     facedict.clear() #clear dictionary so that the next emotion can be stored
 def open_webcamframe():
-      
-    while True:
+    counter = 0 
+    while counter < len(emotions):
+        rval, frame = vc.read()
+        if rval ==False:
+            print('Frame is empty...Error')
+            cv2.imshow("preview", frame)
+            key = cv2.waitKey(40)
+            if key == 27: # exit on ESC
+                print(key)
+                break
         if vc.isOpened(): # try to get the first frame
             rval, frame = vc.read()
-        else:
-            rval = False
-        cv2.imshow("preview", frame)
-        key = cv2.waitKey(40)
-        if key == 27: # exit on ESC
-            break
-        if key == 32:
+            print("Frame full...")
             #To convert image into grayscale
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) 
             clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
@@ -69,10 +77,12 @@ def open_webcamframe():
                 if len(face) == 1: 
                     faceslice = crop_face(clahe_image, face)
                     cv2.imshow("webcam", frame)
+                    counter +=1
                 return faceslice#slice face from image
            
             else:
-                print("no/multiple faces detected, passing over frame")
+                counter +=1 
+                print("no/multiple faces detected, passlsing over frame")
     cv2.destroyWindow("preview")
     cv2.destroyWindow("webcam")
 build_set(emotions)

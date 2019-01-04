@@ -25,9 +25,13 @@ class Person(db.Model):
     mood = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     faceBoolean = db.Column(db.Integer)
+    #subjectName = db.Column(db.String(120), unique = True)
+   # def subjectImg(self, size):
+
 
     def __repr__(self):
-        return '<Person {}, has mood {}>'.format(self.user_id, self.mood)
+        return '{}'.format(self.user_id)
+        #return '<Person {}, has mood {}>'.format(self.user_id, self.mood)
 
 @login.user_loader
 def load_user(id):
