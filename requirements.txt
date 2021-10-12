@@ -27,7 +27,7 @@ Markdown==3.0.1
 MarkupSafe==1.0
 numpy==1.15.4
 oauthlib==2.0.6
-opencv-python==3.4.3.18
+opencv-python==3.4.7.28
 prettytable==0.7.2
 protobuf==3.6.1
 pyasn1==0.4.2
