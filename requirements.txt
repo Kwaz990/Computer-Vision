@@ -25,7 +25,7 @@ keyrings.alt==3.0
 language-selector==0.1
 Markdown==3.0.1
 MarkupSafe==1.0
-numpy==1.15.4
+numpy==1.22.0
 oauthlib==2.0.6
 opencv-python==3.4.3.18
 prettytable==0.7.2
