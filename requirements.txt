@@ -2,7 +2,7 @@ absl-py==0.6.1
 asn1crypto==0.24.0
 astor==0.7.1
 blinker==1.4
-certifi==2018.1.18
+certifi==2022.12.7
 chardet==3.0.4
 cloud-init==18.4
 command-not-found==0.3
